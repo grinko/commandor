@@ -199,14 +199,15 @@ public class GameMap {
 
     private static void printAccidentScreen() {
         System.out.println("... and died. Game over looser");
-        System.out.println("Press 9+Enter to exit");
+        System.out.println("Press 9+Enter to exit game");
         //TODO implement variants without death
         //TODO fix [user can just ignore n+Enter and continue the game]
     }
 
     private static void printFindScreen() {
         System.out.println("Do you want to put it into you backpack?");
-        //implement
+        System.out.println("Press p+Enter to return on previous screen");
+        //TODO implement
     }
 
     private static void printAttackScreen(HiddenFieldContent hiddenFieldContent, BaseCommando pers) {
