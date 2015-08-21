@@ -3,7 +3,9 @@ console RPG
 
 1) build jar [jdk 1.7]<br />
 2) run jar in your terminal <br />
-!it was tested only on linux yet! <br />
+works on linux <br />
+works on MacOS but repaint of map is too slowly<br />
+does not work on Windows <br />
 
 play in terminal because IDE does not support console clean!!! <br />
 
