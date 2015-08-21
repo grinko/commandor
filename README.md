@@ -1,9 +1,12 @@
 # commandor
 console RPG
 
-1) build jar <br />
+1) build jar [jdk 1.7]<br />
 2) run jar in your terminal <br />
 !it was tested only on linux yet! <br />
+
+play in terminal because IDE does not support console clean!!! <br />
+
 <br />
 Implemented: <br /> 
 1) character creation : name, type (sniper, regular soldier) with differents weapon set <br />
