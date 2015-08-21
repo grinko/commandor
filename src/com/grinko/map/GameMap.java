@@ -278,7 +278,7 @@ public class GameMap {
             //printControlKeys(row);
             System.out.println();
         }
-        System.out.println("p+Enter to exit");
+        System.out.println("u+Enter to exit");
     }
 
 
@@ -346,7 +346,7 @@ public class GameMap {
                     GameEngine.clearConsole();
                     GameMap.printInnerScreen(pers.getCoordinates(), pers, moveMessage);
                     break;*/
-                case 'p':
+                case 'u':
                     GameEngine.clearConsole();
                     GameMap.printScreen(pers.getCoordinates(), pers, moveMessage);
                     break;
