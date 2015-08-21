@@ -8,7 +8,7 @@ import com.grinko.model.character.Coordinates;
 public class Pistol implements IWeapon, IFireWeapon {
 
     private final int damage = 5;
-    private final int distance = 3;
+    private final int distance = 5;
     private final int cartridgeCapacity = 10;
     private int roundsNumber = 0;
 

@@ -8,7 +8,7 @@ import com.grinko.model.character.Coordinates;
 public class AssaultRifle implements IWeapon, IFireWeapon{
 
     private final int damage = 5;
-    private final int distance = 5;
+    private final int distance = 8;
     private final int cartridgeCapacity = 30;
     private int roundsNumber = 0;
 
