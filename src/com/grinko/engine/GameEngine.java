@@ -23,6 +23,11 @@ public class GameEngine {
         pers.setType(persTypeName[1]);
         clearConsole();
         GameMap.printScreen(persCoordinates, pers, "Let's move");
+        moveControl();
+
+    }
+
+    public static void moveControl() {
         Scanner in = new Scanner(System.in);
         while (true) {
             String actionStr = in.next();

@@ -100,6 +100,7 @@ public class GameMap {
         printMessageLine(message);
         printMap(personCoordinates);
         printHints(personCoordinates);
+        GameEngine.moveControl();
     }
 
     private static void printHints(Coordinates coordinates) {
