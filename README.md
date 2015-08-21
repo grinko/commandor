@@ -14,8 +14,9 @@ Implemented: <br />
 3) primitive enemies : animals and humans <br />
 4) fighting engine : you personage can shoot at any enemy and humans can shoot at you <br />
 5) your level will increase after fights and your strike power depends on the level <br />
+6) you can find items (but cannot add them into your backpack yet) and you can accidently die
 
-6) a lot of bugs - will be fixed <br />
+7) a lot of bugs - will be fixed <br />
 <br />
 TODO <br />
 1) bugfixing <br />
