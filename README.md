@@ -5,7 +5,7 @@ console RPG
 2) run jar in your terminal <br />
 works on linux <br />
 works on MacOS but repaint of map is too slowly<br />
-does not work on Windows <br />
+works on Windows but sometimes your game map will move by vertical<br />
 
 play in terminal because IDE does not support console clean!!! <br />
 
