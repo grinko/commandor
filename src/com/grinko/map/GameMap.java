@@ -4,6 +4,7 @@ import com.grinko.engine.GameEngine;
 import com.grinko.model.character.BaseCommando;
 import com.grinko.model.character.Coordinates;
 import com.grinko.model.character.enemy.BaseEnemy;
+import com.grinko.model.character.enemy.animal.BaseAnimal;
 import com.grinko.model.character.enemy.animal.Bear;
 import com.grinko.model.character.enemy.animal.Wolf;
 import com.grinko.model.character.enemy.man.BaseEnemyMan;
@@ -339,6 +340,9 @@ public class GameMap {
                     if (!enemyList.isEmpty() && enemyList.get(0) instanceof BaseEnemyMan) {
                         enemiesShootAtPers(enemyList, pers, persOnFightFieldCoord);
                     }
+                    if (!enemyList.isEmpty() && enemyList.get(0) instanceof BaseAnimal) {
+                        animalsAttackPers(fightingMap, enemyList, pers, persOnFightFieldCoord);
+                    }
                     if (pers.getHealth() <= 0) {
                         System.out.println("You were killed by the enemies. Press 9+Enter to exit game.");
                     }
@@ -359,6 +363,73 @@ public class GameMap {
             }
 
         }
+    }
+
+    private static void animalsAttackPers(String[][] fightingMap, List<BaseEnemy> enemyList, BaseCommando pers, Coordinates persOnFightFieldCoord) {
+        for (BaseEnemy enemy : enemyList) {
+            if (isNeighboardCell(enemy.getCoordinates(), persOnFightFieldCoord)) {
+                pers.setHealth(pers.getHealth() - ((BaseAnimal)enemy).getDamage());
+                System.out.println("Animal hits you. Damage is " + ((BaseAnimal)enemy).getDamage());
+                System.out.println("Your health is " + pers.getHealth());
+            } else {
+                moveToXY(enemy, fightingMap, persOnFightFieldCoord);
+            }
+        }
+    }
+
+    private static void moveToCell(String[][] fightingMap, BaseEnemy enemy, Coordinates persOnFightFieldCoord) {
+
+    }
+
+    private static void moveToXY(BaseEnemy self, String[][] table, Coordinates toCoord) {
+        int currentX = self.getCoordinates().getX();
+        int currentY = self.getCoordinates().getY();
+
+        int toX = toCoord.getX();
+        int toY = toCoord.getY();
+
+        List<Direction> directFree = new ArrayList<Direction>();
+        if (currentY != 0) {
+            directFree.add(Direction.NORTH);
+        }
+        System.out.println(currentY + " = " + table.length);
+        if (currentY != table.length - 1) {
+            directFree.add(Direction.SOUTH);
+        }
+        if (currentX != table[0].length - 1) {
+            directFree.add(Direction.EAST);
+        }
+        if (currentX != 0) {
+            directFree.add(Direction.WEST);
+        }
+
+        int offsetX = 0;
+        int offsetY = 0;
+        if (directFree.isEmpty()) {
+            return;
+        } else {
+            if (currentX >= toX) {
+                offsetX = -1;
+            } else {
+                offsetX = 1;
+            }
+            if (currentY >= toY) {
+                offsetY = -1;
+            } else {
+                offsetY = 1;
+            }
+            self.getCoordinates().setX(currentX + offsetX);
+            self.getCoordinates().setY(currentY + offsetY);
+        }
+        directFree.clear();
+
+    }
+
+    private static boolean isNeighboardCell(Coordinates coord1, Coordinates coord2) {
+        if(Math.hypot(coord1.getX() - coord2.getX(), coord1.getY() - coord2.getY()) - 1 == 0.0) {
+            return true;
+        }
+        return false;
     }
 
     private static void enemiesShootAtPers(List<BaseEnemy> enemyList, BaseCommando pers, Coordinates persOnFightFieldCoord) {
