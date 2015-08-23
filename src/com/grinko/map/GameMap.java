@@ -232,7 +232,7 @@ public class GameMap {
             for (int i = 0; i < objNumber; i++) {
                 int x = randInt(0, fightingMap.length - 1);
                 int y = randInt(0, fightingMap[0].length - 1);
-                fightingMap[x][y] = "o";
+                //fightingMap[x][y] = "o";
                 Coordinates coord = new Coordinates(x, y);
                 enemyList.add(new Wolf(coord));
             }
@@ -242,7 +242,7 @@ public class GameMap {
             for (int i = 0; i < objNumber; i++) {
                 int x = randInt(0, fightingMap.length - 1);
                 int y = randInt(0, fightingMap[0].length - 1);
-                fightingMap[x][y] = "o";
+                //fightingMap[x][y] = "o";
                 Coordinates coord = new Coordinates(x, y);
                 enemyList.add(new Bear(coord));
             }
@@ -252,27 +252,29 @@ public class GameMap {
             for (int i = 0; i < objNumber; i++) {
                 int x = randInt(0, fightingMap.length - 1);
                 int y = randInt(0, fightingMap[0].length - 1);
-                fightingMap[x][y] = "o";
+                //fightingMap[x][y] = "o";
                 Coordinates coord = new Coordinates(x, y);
                 enemyList.add(new StupidEnemy(coord));
             }
         }
 
         Coordinates aimCoordinates = new Coordinates(0,0);
-        printFightingMap(fightingMap, aimCoordinates);
+        printFightingMap(fightingMap, aimCoordinates, enemyList);
         fight(fightingMap, aimCoordinates, enemyList, pers, persOnFightFieldCoord);
 
 
 
     }
 
-    private static void printFightingMap(String[][] fightingMap, Coordinates aimCoordinates) {
+    private static void printFightingMap(String[][] fightingMap, Coordinates aimCoordinates, List<BaseEnemy> enemyList) {
         System.out.println("Find your aim with w,a,s,d keys + Enter.");
         System.out.println("Press f+Enter for shooting. ");
         for(int row = 0; row < fightingMap.length; row++) {
             for(int col = 0; col < fightingMap[0].length; col++) {
                 if (row == aimCoordinates.getX() && col == aimCoordinates.getY()) {
                     System.out.print("x");
+                } else if (isEnemyCoordinates(enemyList, row, col)) {
+                    System.out.print("o");
                 } else {
                     System.out.print(fightingMap[row][col]);
                 }
@@ -281,6 +283,15 @@ public class GameMap {
             System.out.println();
         }
         System.out.println("u+Enter to exit");
+    }
+
+    private static boolean isEnemyCoordinates(List<BaseEnemy> enemyList, int row, int col) {
+        for (BaseEnemy enemy : enemyList) {
+            if (enemy.getCoordinates().getX() == row && enemy.getCoordinates().getY() == col) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -297,27 +308,27 @@ public class GameMap {
                 case 'w':
                     aimCoord.setX(aimCoord.getX() - 1);
                     GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord);
+                    printFightingMap(fightingMap, aimCoord, enemyList);
                     break;
                 case 's':
                     aimCoord.setX(aimCoord.getX() + 1);
                     GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord);
+                    printFightingMap(fightingMap, aimCoord, enemyList);
                     break;
                 case 'a':
                     aimCoord.setY(aimCoord.getY() - 1);
                     GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord);
+                    printFightingMap(fightingMap, aimCoord, enemyList);
                     break;
                 case 'd':
                     aimCoord.setY(aimCoord.getY() + 1);
                     GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord);
+                    printFightingMap(fightingMap, aimCoord, enemyList);
                     break;
                 case 'f':
                     //SHOOT
                     GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord);
+                    printFightingMap(fightingMap, aimCoord, enemyList);
                     boolean isShootAtTarget = false;
                     for (BaseEnemy enemy : enemyList) {
                         if (enemy.getCoordinates().getX() == aimCoord.getX()
@@ -342,6 +353,7 @@ public class GameMap {
                     }
                     if (!enemyList.isEmpty() && enemyList.get(0) instanceof BaseAnimal) {
                         animalsAttackPers(fightingMap, enemyList, pers, persOnFightFieldCoord);
+                        printFightingMap(fightingMap, aimCoord, enemyList);
                     }
                     if (pers.getHealth() <= 0) {
                         System.out.println("You were killed by the enemies. Press 9+Enter to exit game.");
@@ -372,7 +384,9 @@ public class GameMap {
                 System.out.println("Animal hits you. Damage is " + ((BaseAnimal)enemy).getDamage());
                 System.out.println("Your health is " + pers.getHealth());
             } else {
-                moveToXY(enemy, fightingMap, persOnFightFieldCoord);
+                moveToXY(enemy, fightingMap, persOnFightFieldCoord);//TODO print info
+                System.out.println("enemy moved to X="+enemy.getCoordinates().getX() + ", Y=" + enemy.getCoordinates().getY());
+                //use Directions in the out info
             }
         }
     }
@@ -392,7 +406,7 @@ public class GameMap {
         if (currentY != 0) {
             directFree.add(Direction.NORTH);
         }
-        System.out.println(currentY + " = " + table.length);
+        //System.out.println(currentY + " = " + table.length);
         if (currentY != table.length - 1) {
             directFree.add(Direction.SOUTH);
         }
