@@ -14,7 +14,7 @@ Implemented: <br />
 1) character creation : name, type (sniper, regular soldier) with differents weapon set <br />
 2) map exploring : you can walk through forests and fields, and cannot through mountains and rivers  <br />
 3) primitive enemies : animals and humans <br />
-4) fighting engine : you personage can shoot at any enemy and humans can shoot at you <br />
+4) fighting engine : you personage can shoot at any enemy, humans can shoot at you, animals can bite you <br />
 5) your level will increase after fights and your strike power depends on the level <br />
 6) you can find items (but cannot add them into your backpack yet) and you can accidently die
 
@@ -22,7 +22,6 @@ Implemented: <br />
 <br />
 TODO <br />
 1) bugfixing <br />
-2) implement fight animals against personage <br />
-3) refactoring, review all the TODOs in the project <br />
-4) implement save and load from saved state <br />
-5) test on Windows and MacOS <br />
+2) refactoring, review all the TODOs in the project <br />
+3) implement save and load from saved state <br />
+
