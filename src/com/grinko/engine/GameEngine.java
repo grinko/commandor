@@ -108,7 +108,10 @@ public class GameEngine {
             final String os = System.getProperty("os.name");
 
             if (os.contains("Windows")) {
-                Runtime.getRuntime().exec("cls");
+                //Runtime.getRuntime().exec("cls");
+                for (int i = 0; i < 500; i++) {
+                    System.out.println();
+                }
             } else {
                 //Runtime.getRuntime().exec("clear");
                 final String ANSI_CLS = "\u001b[2J";
