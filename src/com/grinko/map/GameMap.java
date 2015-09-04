@@ -304,6 +304,9 @@ public class GameMap {
             Character action = actionStr.length() == 1 ? actionStr.toLowerCase().charAt(0) : new Character(' ');
             String moveMessage = "";
             //TODO make sure you can move your target on that particular cell
+            if (pers.getHealth() <= 0 && !"9".equals(action)) {
+                System.out.println("You were killed by the enemies. Press 9+Enter to exit game.");
+            }
             switch (action) {
                 case 'w':
                     aimCoord.setX(aimCoord.getX() - 1);

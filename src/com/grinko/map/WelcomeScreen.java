@@ -71,7 +71,7 @@ public class WelcomeScreen {
         }
 
         result[1] =  persType;
-        System.out.println("Press any key to start");
+        System.out.println("Press Enter to start");
         try {
             System.in.read();
         } catch (IOException e) {
