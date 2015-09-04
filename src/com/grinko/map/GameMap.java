@@ -194,13 +194,14 @@ public class GameMap {
             //TODO implement [put the stuff into items]
         }
         if ("ACCIDENT".equals(hiddenFieldContent.getEventType())) {
-            printAccidentScreen();
+            printAccidentScreen(pers);
         }
 
     }
 
-    private static void printAccidentScreen() {
+    private static void printAccidentScreen(BaseCommando pers) {
         System.out.println("... and died. Game over looser");
+        pers.setHealth(0);
         System.out.println("Press 9+Enter to exit game");
         //TODO implement variants without death
         //TODO fix [user can just ignore n+Enter and continue the game]

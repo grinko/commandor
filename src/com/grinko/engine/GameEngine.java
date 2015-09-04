@@ -34,6 +34,10 @@ public class GameEngine {
 
             Character action = actionStr.length() == 1 ? actionStr.toLowerCase().charAt(0) : new Character(' ');
             String moveMessage = "";
+            if (pers.getHealth() <= 0 && !"9".equals(action.toString())) {
+                System.out.println("Your pers is dead. Press 9+Enter to exit game.");
+                continue;
+            }
 
             switch (action) {
                 case 'w':
