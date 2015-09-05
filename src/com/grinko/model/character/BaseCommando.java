@@ -74,9 +74,13 @@ public class BaseCommando implements IMove{
     public int getLevel() {
         return level;
     }
-//TODO implement incLevel();
+
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void incLevel() {
+        this.level++;
     }
 
     public int getHitCounter() {
@@ -146,5 +150,4 @@ public class BaseCommando implements IMove{
         }
         return message;
     }
-
 }

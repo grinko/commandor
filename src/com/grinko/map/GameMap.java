@@ -490,7 +490,7 @@ public class GameMap {
             pers.setHitCounter(pers.getHitCounter() + actualDamage);
             //TODO implement nonlinear level upgrade
             if (pers.getHitCounter() >= 10) {
-                pers.setLevel(pers.getLevel() + 1);
+                pers.incLevel();
                 pers.setHitCounter(pers.getHitCounter() - 10);
                 System.out.println("COngrats, you've received level UP");
             }
