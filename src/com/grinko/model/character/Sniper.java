@@ -6,7 +6,9 @@ package com.grinko.model.character;
 public class Sniper extends BaseCommando{
 
     public Sniper() {
-        super(InitConstants.DEFAULT_COORDINATES, InitConstants.INIT_HEALTH, InitConstants.getSniperInitWeapon(), 1);//TODO magic number
+        super(InitConstants.DEFAULT_COORDINATES, InitConstants.INIT_HEALTH,
+                InitConstants.getSniperInitWeapon(),
+                InitConstants.DEFAULT_START_LEVEL);
     }
 
 }

@@ -13,6 +13,7 @@ public class InitConstants {
     public final static int INIT_HEALTH = 20;
     public final static Coordinates DEFAULT_COORDINATES = new Coordinates(0, 0);
     public final static int MAX_WEAPON = 3;
+    public final static int DEFAULT_START_LEVEL = 1;
 
     public static List<IWeapon> getSniperInitWeapon() {
         IWeapon sniperRifle = new SniperRifle();

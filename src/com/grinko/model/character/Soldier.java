@@ -5,6 +5,8 @@ package com.grinko.model.character;
  */
 public class Soldier extends BaseCommando {
     public Soldier() {
-        super(InitConstants.DEFAULT_COORDINATES, InitConstants.INIT_HEALTH, InitConstants.getSoldierInitWeapon(), 1);//TODO magic number
+        super(InitConstants.DEFAULT_COORDINATES, InitConstants.INIT_HEALTH,
+                InitConstants.getSoldierInitWeapon(),
+                InitConstants.DEFAULT_START_LEVEL);
     }
 }
