@@ -261,13 +261,13 @@ public class GameMap {
 
         Coordinates aimCoordinates = new Coordinates(0,0);
         printFightingMap(fightingMap, aimCoordinates, enemyList);
-        fight(fightingMap, aimCoordinates, enemyList, pers, persOnFightFieldCoord);
+        GameEngine.fight(fightingMap, aimCoordinates, enemyList, pers, persOnFightFieldCoord);
 
 
 
     }
 
-    private static void printFightingMap(String[][] fightingMap, Coordinates aimCoordinates, List<BaseEnemy> enemyList) {
+    public static void printFightingMap(String[][] fightingMap, Coordinates aimCoordinates, List<BaseEnemy> enemyList) {
         System.out.println("Find your aim with w,a,s,d keys + Enter.");
         System.out.println("Press f+Enter for shooting. ");
         for(int row = 0; row < fightingMap.length; row++) {
@@ -296,110 +296,11 @@ public class GameMap {
     }
 
 
-    //TODO move to GameEngine
-    private static void fight(String[][] fightingMap, Coordinates aimCoord, List<BaseEnemy> enemyList, BaseCommando pers, Coordinates persOnFightFieldCoord) {
-        Scanner in = new Scanner(System.in);
-        while (true) {
-            String actionStr = in.next();
-
-            Character action = actionStr.length() == 1 ? actionStr.toLowerCase().charAt(0) : new Character(' ');
-            String moveMessage = "";
-            //TODO make sure you can move your target on that particular cell
-            if (pers.getHealth() <= 0 && !"9".equals(action)) {
-                System.out.println("You were killed by the enemies. Press 9+Enter to exit game.");
-            }
-            switch (action) {
-                case 'w':
-                    aimCoord.setX(aimCoord.getX() - 1);
-                    GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord, enemyList);
-                    break;
-                case 's':
-                    aimCoord.setX(aimCoord.getX() + 1);
-                    GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord, enemyList);
-                    break;
-                case 'a':
-                    aimCoord.setY(aimCoord.getY() - 1);
-                    GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord, enemyList);
-                    break;
-                case 'd':
-                    aimCoord.setY(aimCoord.getY() + 1);
-                    GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord, enemyList);
-                    break;
-                case 'f':
-                    //SHOOT
-                    GameEngine.clearConsole();
-                    printFightingMap(fightingMap, aimCoord, enemyList);
-                    boolean isShootAtTarget = false;
-                    for (BaseEnemy enemy : enemyList) {
-                        if (enemy.getCoordinates().getX() == aimCoord.getX()
-                                && enemy.getCoordinates().getY() == aimCoord.getY()) {
-                            persShootAtEnemy(fightingMap, pers, enemy, persOnFightFieldCoord);
-                            System.out.println();
-                            isShootAtTarget = true;
-                        }
-                    }
-                    Iterator<BaseEnemy> iterator = enemyList.iterator();
-                    while (iterator.hasNext()) {
-                        BaseEnemy enemy = iterator.next();
-                        if (enemy.getHealth() <= 0) {
-                            iterator.remove();
-                        }
-                    }
-                    if (!isShootAtTarget) {
-                        System.out.println("You shot at an empty field. Aim at the enemy!");
-                    }
-                    if (!enemyList.isEmpty() && enemyList.get(0) instanceof BaseEnemyMan) {
-                        enemiesShootAtPers(enemyList, pers, persOnFightFieldCoord);
-                    }
-                    if (!enemyList.isEmpty() && enemyList.get(0) instanceof BaseAnimal) {
-                        animalsAttackPers(fightingMap, enemyList, pers, persOnFightFieldCoord);
-                        printFightingMap(fightingMap, aimCoord, enemyList);
-                    }
-                    if (pers.getHealth() <= 0) {
-                        System.out.println("You were killed by the enemies. Press 9+Enter to exit game.");
-                    }
-                    break;
-                /*case 'n':
-                    GameEngine.clearConsole();
-                    GameMap.printInnerScreen(pers.getCoordinates(), pers, moveMessage);
-                    break;*/
-                case 'u':
-                    GameEngine.clearConsole();
-                    GameMap.printScreen(pers.getCoordinates(), pers, moveMessage);
-                    break;
-                case '9':
-                    GameEngine.exitGame();
-                    break;
-                default:
-                    break;
-            }
-
-        }
-    }
-
-    private static void animalsAttackPers(String[][] fightingMap, List<BaseEnemy> enemyList, BaseCommando pers, Coordinates persOnFightFieldCoord) {
-        for (BaseEnemy enemy : enemyList) {
-            if (isNeighboardCell(enemy.getCoordinates(), persOnFightFieldCoord)) {
-                pers.setHealth(pers.getHealth() - ((BaseAnimal)enemy).getDamage());
-                System.out.println("Animal hits you. Damage is " + ((BaseAnimal)enemy).getDamage());
-                System.out.println("Your health is " + pers.getHealth());
-            } else {
-                moveToXY(enemy, fightingMap, persOnFightFieldCoord);//TODO print info
-                System.out.println("enemy moved to X="+enemy.getCoordinates().getX() + ", Y=" + enemy.getCoordinates().getY());
-                //use Directions in the out info
-            }
-        }
-    }
-
     private static void moveToCell(String[][] fightingMap, BaseEnemy enemy, Coordinates persOnFightFieldCoord) {
 
     }
 
-    private static void moveToXY(BaseEnemy self, String[][] table, Coordinates toCoord) {
+    public static void moveToXY(BaseEnemy self, String[][] table, Coordinates toCoord) {
         int currentX = self.getCoordinates().getX();
         int currentY = self.getCoordinates().getY();
 
@@ -443,67 +344,11 @@ public class GameMap {
 
     }
 
-    private static boolean isNeighboardCell(Coordinates coord1, Coordinates coord2) {
+    public static boolean isNeighboardCell(Coordinates coord1, Coordinates coord2) {
         if(Math.hypot(coord1.getX() - coord2.getX(), coord1.getY() - coord2.getY()) - 1 == 0.0) {
             return true;
         }
         return false;
-    }
-
-    private static void enemiesShootAtPers(List<BaseEnemy> enemyList, BaseCommando pers, Coordinates persOnFightFieldCoord) {
-        for (BaseEnemy enemy : enemyList) {
-            double distance = Math.sqrt((persOnFightFieldCoord.getX() - enemy.getCoordinates().getX())
-                    * (persOnFightFieldCoord.getX() - enemy.getCoordinates().getX())
-                    + (persOnFightFieldCoord.getY() - enemy.getCoordinates().getY())
-                    * (persOnFightFieldCoord.getY() - enemy.getCoordinates().getY()));
-
-            int maxDistance = ((BaseEnemyMan) enemy).getWeapons().get(0).getDistance();
-            int defaultDamage = ((BaseEnemyMan) enemy).getWeapons().get(0).getDamage();
-            int enemyLevel = ((BaseEnemyMan) enemy).getLevel();
-            Random random = new Random();
-            int actualDamage = Math.round(defaultDamage * randInt(1, enemyLevel) / randInt(1, 10));
-            if(distance < maxDistance) {
-                pers.setHealth(pers.getHealth() - actualDamage);
-                System.out.println("Enemy has shoot at you and reduced your health on " + actualDamage + "points.");
-                System.out.println("Your health: " + pers.getHealth());
-            }
-        }
-
-    }
-
-    private static void persShootAtEnemy(String[][] fightingMap, BaseCommando pers, BaseEnemy enemy, Coordinates persOnFightFieldCoord) {
-        //TODO implement choosing of active weapon (i.e. split hands and items)
-        int maxDistance = pers.getWeapons().get(0).getDistance();
-        int defaultDamage = pers.getWeapons().get(0).getDamage();
-        String weaponType = pers.getWeapons().get(0).getName();
-
-        int persLevel = pers.getLevel();
-
-        double distance = Math.sqrt((persOnFightFieldCoord.getX() - enemy.getCoordinates().getX())
-                * (persOnFightFieldCoord.getX() - enemy.getCoordinates().getX())
-                + (persOnFightFieldCoord.getY() - enemy.getCoordinates().getY())
-                * (persOnFightFieldCoord.getY() - enemy.getCoordinates().getY()));
-        //TODO think about game balance
-        int actualDamage = Math.round(defaultDamage * randInt(1, persLevel) / randInt(1, 10));
-        if (distance < maxDistance) {
-            enemy.setHealth(enemy.getHealth() - actualDamage);
-            pers.setHitCounter(pers.getHitCounter() + actualDamage);
-            //TODO implement nonlinear level upgrade
-            if (pers.getHitCounter() >= 10) {
-                pers.incLevel();
-                pers.setHitCounter(pers.getHitCounter() - 10);
-                System.out.println("COngrats, you've received level UP");
-            }
-            System.out.println("You've shoot the enemy and reduced his health on " + actualDamage + "points.");
-            if (enemy.getHealth() <= 0) {
-                System.out.println("The enemy is dead. ");
-                fightingMap[enemy.getCoordinates().getX()][enemy.getCoordinates().getY()] = ".";
-            }
-            //TODO implement reducing of number of bullets
-        } else {
-            System.out.println("Your rifle cannot shoot on such distance!");
-        }
-
     }
 
 }

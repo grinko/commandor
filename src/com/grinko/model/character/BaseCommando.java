@@ -86,7 +86,7 @@ public class BaseCommando implements IMove{
     public int getHitCounter() {
         return hitCounter;
     }
-//TODO implement incHitCOunter(hit)
+
     public void setHitCounter(int hitCounter) {
         this.hitCounter = hitCounter;
     }
