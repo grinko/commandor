@@ -8,6 +8,7 @@ import com.grinko.model.character.Coordinates;
 public class Wolf extends BaseAnimal {
 
     public Wolf(Coordinates coord) {
-        super("Wolf", coord, 5, 2);    //TODO avoid magic numbers (maybe move to InitConstants or create enum)
+        super(AnimalProperties.DEFAULT_WOLF.getName(), coord,
+                AnimalProperties.DEFAULT_WOLF.getInitialHealth(), AnimalProperties.DEFAULT_WOLF.getDamage());
     }
 }

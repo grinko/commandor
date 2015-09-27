@@ -8,7 +8,7 @@ import com.grinko.model.character.InitConstants;
  */
 public class StupidEnemy extends BaseEnemyMan {
     public StupidEnemy(Coordinates coordinates) {
-        super("Stupid Enemy", 1, coordinates, 10, InitConstants.getStupidEnemyInitWeapon());
-        //TODO avoid magic numbers (maybe move to InitConstants or create enum)
+        super(EnemyManProperties.DEFAULT_STUPID_ENEMY.getName(), EnemyManProperties.DEFAULT_STUPID_ENEMY.getInitLevel(),
+                coordinates, EnemyManProperties.DEFAULT_STUPID_ENEMY.getInitHealth(), InitConstants.getStupidEnemyInitWeapon());
     }
 }
