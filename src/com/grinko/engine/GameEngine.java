@@ -236,12 +236,7 @@ public class GameEngine {
         if (distance < maxDistance) {
             enemy.setHealth(enemy.getHealth() - actualDamage);
             pers.setHitCounter(pers.getHitCounter() + actualDamage);
-            //TODO implement nonlinear level upgrade
-            if (pers.getHitCounter() >= 10) {
-                pers.incLevel();
-                pers.setHitCounter(pers.getHitCounter() - 10);
-                System.out.println("COngrats, you've received level UP");
-            }
+            incLevelIfNecessary();
             System.out.println("You've shoot the enemy and reduced his health on " + actualDamage + "points.");
             if (enemy.getHealth() <= 0) {
                 System.out.println("The enemy is dead. ");
@@ -252,6 +247,15 @@ public class GameEngine {
             System.out.println("Your rifle cannot shoot on such distance!");
         }
 
+    }
+
+    private static void incLevelIfNecessary() {
+        if (pers.getHitCounter() >= 10 * pers.getLevel()) {
+            System.out.println("UP LEVEL HEALTH = " + pers.getHitCounter());
+            pers.setHitCounter(pers.getHitCounter() - 10 * pers.getLevel());
+            pers.incLevel();
+            System.out.println("COngrats, you've received level UP");
+        }
     }
 
     private static void enemiesShootAtPers(List<BaseEnemy> enemyList, BaseCommando pers, Coordinates persOnFightFieldCoord) {
@@ -287,5 +291,6 @@ public class GameEngine {
                 //use Directions in the out info
             }
         }
+        //TODO add trees, water and use A*/Lee algorithm
     }
 }
