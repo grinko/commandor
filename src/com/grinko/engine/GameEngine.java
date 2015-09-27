@@ -130,7 +130,7 @@ public class GameEngine {
                 System.out.flush();
             }
         } catch (final Exception e) {
-            //  Handle any exceptions.
+            // TODO Handle any exceptions.
         }
 
     }
@@ -142,30 +142,49 @@ public class GameEngine {
 
             Character action = actionStr.length() == 1 ? actionStr.toLowerCase().charAt(0) : new Character(' ');
             String moveMessage = "";
-            //TODO make sure you can move your target on that particular cell
             if (pers.getHealth() <= 0 && !"9".equals(action)) {
                 System.out.println("You were killed by the enemies. Press 9+Enter to exit game.");
             }
             switch (action) {
                 case 'w':
-                    aimCoord.setX(aimCoord.getX() - 1);
-                    clearConsole();
-                    GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    if (verifyMovePosibility(aimCoord.getX() - 1, fightingMap.length - 1)) {
+                        aimCoord.setX(aimCoord.getX() - 1);
+                        clearConsole();
+                        GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    } else {
+                        clearConsole();
+                        GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    }
                     break;
                 case 's':
-                    aimCoord.setX(aimCoord.getX() + 1);
-                    clearConsole();
-                    GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    if (verifyMovePosibility(aimCoord.getX() + 1, fightingMap.length - 1)) {
+                        aimCoord.setX(aimCoord.getX() + 1);
+                        clearConsole();
+                        GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    } else {
+                        clearConsole();
+                        GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    }
                     break;
                 case 'a':
-                    aimCoord.setY(aimCoord.getY() - 1);
-                    clearConsole();
-                    GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    if (verifyMovePosibility(aimCoord.getY() - 1, fightingMap[0].length - 1)) {
+                        aimCoord.setY(aimCoord.getY() - 1);
+                        clearConsole();
+                        GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    } else {
+                        clearConsole();
+                        GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    }
                     break;
                 case 'd':
-                    aimCoord.setY(aimCoord.getY() + 1);
-                    clearConsole();
-                    GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    if (verifyMovePosibility(aimCoord.getY() + 1, fightingMap[0].length - 1)) {
+                        aimCoord.setY(aimCoord.getY() + 1);
+                        clearConsole();
+                        GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    } else {
+                        clearConsole();
+                        GameMap.printFightingMap(fightingMap, aimCoord, enemyList);
+                    }
                     break;
                 case 'f':
                     //SHOOT
@@ -217,6 +236,10 @@ public class GameEngine {
             }
 
         }
+    }
+
+    private static boolean verifyMovePosibility(int coord, int length) {
+        return (coord >= 0) && (coord <= length);
     }
 
     private static void persShootAtEnemy(String[][] fightingMap, BaseCommando pers, BaseEnemy enemy, Coordinates persOnFightFieldCoord) {
